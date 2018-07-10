@@ -1,0 +1,4 @@
+seasonal:
+    -> HoltWinters
+    -> SARIMA
+
