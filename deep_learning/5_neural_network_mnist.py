@@ -118,9 +118,24 @@ def train_nn(nn_structure, X, y, iter_num=3000, alpha=0.25):
         cnt += 1
     return W, b, avg_cost_func
 
-W, b, avg_cost_func = train_nn(nn_structure, X_train, y_v_train
+W, b, avg_cost_func = train_nn(nn_structure, X_train, y_v_train)
 
 plt.plot(avg_cost_func)
 plt.ylabel('Average J')
 plt.xlabel('Iteration number')
 plt.show()
+
+def predict_y(W, b, X, n_layers):
+    m = X.shape[0]
+    y = np.zeros((m,))
+    for i in range(m):
+        h, z = feed_forward(X[i, :], W, b)
+        y[i] = np.argmax(h[n_layers])
+    return y
+
+# assess the accuracy of the prediction
+from sklearn.metrics import accuracy_score
+y_pred = predict_y(W, b, X_test, 3)
+print(accuracy_score(y_test, y_pred)*100)
+
+
