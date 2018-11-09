@@ -4,6 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
 dataset = loadtxt('test.csv', delimiter=',')
+#one hot encoding for categorical data !!!
 
 X = dataset[:,0:8]
 Y = dataset[:,8]
