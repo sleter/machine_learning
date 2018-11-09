@@ -13,8 +13,14 @@ Y = dataset[:,8]
 test_size = 0.3
 X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=test_size)#random_state=seed
 
-model = XGBClassifier()
+# max_depth (int) – Maximum tree depth for base learners.
+# learning_rate (float) – Boosting learning rate (xgb’s “eta”)
+# n_estimators (int) – Number of boosted trees to fit.
+# silent (boolean) – Whether to print messages while running boosting.
+model = XGBClassifier(max_depth=3, learning_rate=0.1, n_estimators=100, silent=True)
 model.fit(X_train, y_train)
+
+#model.save_model('model01')
 
 print(model)
 
