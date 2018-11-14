@@ -2,9 +2,21 @@ from numpy import loadtxt
 from xgboost import XGBClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
+import pandas as pd
+from random import choice
+from string import ascii_lowercase
 
-dataset = loadtxt('test.csv', delimiter=',')
 #one hot encoding for categorical data !!!
+df = pd.read_csv('test.csv')
+sLen = len(df['1'])
+df['string'] = pd.Series(["".join(choice(ascii_lowercase) for i in range(8)) for i in range(0, 768)])
+df_numerical = pd.get_dummies(df, columns=['string'])
+
+# print(df_numerical)
+
+dataset = df_numerical.values
+
+print(dataset)
 
 X = dataset[:,0:8]
 Y = dataset[:,8]
@@ -21,8 +33,7 @@ model = XGBClassifier(max_depth=3, learning_rate=0.1, n_estimators=100, silent=T
 model.fit(X_train, y_train)
 
 #model.save_model('model01')
-
-print(model)
+#print(model)
 
 y_pred = model.predict(X_test)
 predictions = [round(value) for value in y_pred]
